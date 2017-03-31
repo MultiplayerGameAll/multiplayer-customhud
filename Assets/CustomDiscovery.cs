@@ -11,6 +11,8 @@ public class CustomDiscovery : NetworkDiscovery {
 
 	private string dataPattern;
 
+	private bool connected;
+
 	void Start(){
 		showGUI = false;
 		this.Initialize();
@@ -21,9 +23,10 @@ public class CustomDiscovery : NetworkDiscovery {
 	public override void OnReceivedBroadcast(string fromAddress, string data)
     {
          Debug.Log("Server Found " + fromAddress + " data " + data);
-		 if(data.StartsWith(dataPattern)){
+		 if(data.StartsWith(dataPattern ) && !connected){
 			Debug.Log("connecting");
 			CallBackConnectFunction(fromAddress);
+			connected = true;
 		 }
     }
 
